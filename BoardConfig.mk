@@ -34,8 +34,8 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 # Kernel
-TARGET_KERNEL_CONFIG := cyanogenmod_kyle02_defconfig
-TARGET_KERNEL_SOURCE := kernel/samsung/kylessopen
+TARGET_KERNEL_CONFIG := kyle02_defconfig
+TARGET_KERNEL_SOURCE := kernel/samsung/stock
 TARGET_BOOTLOADER_BOARD_NAME := kylessopen
 BOARD_KERNEL_CMDLINE := androidboot.hardware=kylessopen
 BOARD_KERNEL_BASE := 0x00200000

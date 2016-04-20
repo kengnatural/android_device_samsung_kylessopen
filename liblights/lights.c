@@ -89,9 +89,12 @@ static int set_light_backlight(struct light_device_t *dev, struct light_state_t 
      return err;
 }
 
-static int set_light_buttons (struct light_device_t* dev, struct light_state_t const* state) {
-     int err = 0;
-     int on = is_lit (state);
+static int button_light = 0;
+static int notification_light = 0;
+
+static int update_button_lights()
+{
+     int on = button_light || notification_light;
      ALOGV("%s state->color = %d is_lit = %d", __func__,state->color , on);
      pthread_mutex_lock (&g_lock);
      if(on)
@@ -103,26 +106,17 @@ static int set_light_buttons (struct light_device_t* dev, struct light_state_t c
      return 0;
 }
 
+static int set_light_buttons (struct light_device_t* dev, struct light_state_t const* state) 
+{
+     button_light = is_lit (state);
+     return update_button_lights();
+}
+
 static int set_light_notifications(struct light_device_t* dev, struct light_state_t const* state)
 {
      /* for BLN */
-     int on = is_lit(state);
-     pthread_mutex_lock (&g_lock);
-
-     if(on)
-     {
-         write_int(NOTIFICATION_ENABLE_FILE, 1);
-         write_int(NOTIFICATION_FILE, 1);
-     }
-     else
-     {
-         write_int(NOTIFICATION_FILE, 0);
-         write_int(NOTIFICATION_ENABLE_FILE, 0);
-     }
-
-     pthread_mutex_unlock (&g_lock);
-
-     return 0;
+     notification_light = is_lit(state);
+     return update_button_lights();
 }
 
 static int close_lights(struct light_device_t *dev)
