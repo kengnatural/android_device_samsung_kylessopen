@@ -1,0 +1,7 @@
+/boot          emmc        /dev/block/mmcblk0p8 	flags=backup=1
+/system        ext4        /dev/block/mmcblk0p16	flags=backup=1;wipeingui
+/data          ext4        /dev/block/mmcblk0p25	length=-32768;flags=backup=1;wipeingui;wipeduringfactoryreset
+/external_sd   auto        /dev/block/mmcblk1p1 	/dev/block/mmcblk1	flags=backup=0;display="SD Card";storage;settingsstorage;removable
+/cache         ext4        /dev/block/mmcblk0p17	flags=backup=1;wipeingui;wipeduringfactoryreset
+/recovery      emmc        /dev/block/mmcblk0p12	flags=backup=1
+/misc          emmc        /dev/block/mmcblk0p21
