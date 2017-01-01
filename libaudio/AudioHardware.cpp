@@ -143,6 +143,7 @@ static uint32_t SND_DEVICE_FM_DIGITAL_SPEAKER_PHONE=-1;
 static uint32_t SND_DEVICE_FM_DIGITAL_BT_A2DP_HEADSET=-1;
 static uint32_t SND_DEVICE_FM_ANALOG_STEREO_HEADSET=-1;
 static uint32_t SND_DEVICE_FM_ANALOG_STEREO_HEADSET_CODEC=-1;
+static uint32_t SND_DEVICE_STEREO_HEADSET_3POLE = -1;
 // ----------------------------------------------------------------------------
 
 AudioHardware::AudioHardware() :
@@ -185,6 +186,7 @@ mDirectOutrefCnt(0)
                 CHECK_FOR(TTY_HEADSET);
                 CHECK_FOR(TTY_HCO);
                 CHECK_FOR(TTY_VCO);
+                CHECK_FOR(STEREO_HEADSET_3POLE);
 #ifdef QCOM_FM_ENABLED
                 CHECK_FOR(FM_DIGITAL_STEREO_HEADSET);
                 CHECK_FOR(FM_DIGITAL_SPEAKER_PHONE);
@@ -1821,7 +1823,7 @@ status_t AudioHardware::doRouting(AudioStreamInMSM72xx *input, int outputDevice)
                     ALOGI("Routing audio to FM\n");
                     enableDgtlFmDriver = true;
 #endif
-            } else {
+            } /*else {
                 if (outputDevices & AudioSystem::DEVICE_OUT_SPEAKER) {
                     ALOGI("Routing audio to Speakerphone\n");
                     new_snd_device = SND_DEVICE_SPEAKER;
@@ -1830,7 +1832,7 @@ status_t AudioHardware::doRouting(AudioStreamInMSM72xx *input, int outputDevice)
                     ALOGI("Routing audio to Handset\n");
                     new_snd_device = SND_DEVICE_HANDSET;
                 }
-            }
+            }*/
         }
     }
 
@@ -1904,7 +1906,7 @@ status_t AudioHardware::doRouting(AudioStreamInMSM72xx *input, int outputDevice)
             new_post_proc_feature_mask = (ADRC_ENABLE | EQ_ENABLE | RX_IIR_ENABLE | MBADRC_ENABLE);
         } else if (outputDevices & AudioSystem::DEVICE_OUT_WIRED_HEADPHONE) {
             ALOGI("Routing audio to Wired Headphone\n");
-            new_snd_device = SND_DEVICE_HEADSET;
+            new_snd_device = SND_DEVICE_STEREO_HEADSET_3POLE;
             new_post_proc_feature_mask = (ADRC_ENABLE | EQ_ENABLE | RX_IIR_ENABLE | MBADRC_ENABLE);
         } else if (outputDevices & AudioSystem::DEVICE_OUT_SPEAKER) {
             ALOGI("Routing audio to Speakerphone\n");
