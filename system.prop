@@ -57,7 +57,7 @@ persist.dsds.enabled=true
 ro.multi.rild=false
 
 # USB
-persist.sys.usb.config=mass_storage,adb
+persist.sys.usb.config=mtp,adb
 
 # Wifi
 wifi.interface=wlan0
